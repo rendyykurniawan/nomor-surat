@@ -1,10 +1,7 @@
 FROM php:8.4-fpm
 
 RUN apt-get update -y && apt-get install -y \
-    git \
-    curl \
-    zip \
-    unzip \
+    git curl zip unzip \
     && docker-php-ext-install pdo pdo_mysql \
     && apt-get clean
 
@@ -17,4 +14,4 @@ RUN composer install --no-dev --optimize-autoloader --no-scripts --no-interactio
 
 EXPOSE 8000
 
-CMD php artisan config:clear && php artisan cache:clear && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT
+CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT
