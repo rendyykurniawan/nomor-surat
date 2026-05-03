@@ -1,4 +1,4 @@
-FROM php:8.4-apache
+FROM php:8.4-cli
 
 RUN apt-get update && apt-get install -y \
     git curl zip unzip \
@@ -7,16 +7,9 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     libonig-dev \
     libfreetype6-dev \
-    libjpeg62-turbo-dev \
+    libjpeg-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) \
-        pdo \
-        pdo_mysql \
-        mbstring \
-        xml \
-        gd \
-        zip \
-        tokenizer \
+    && docker-php-ext-install pdo pdo_mysql mbstring xml gd zip tokenizer \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
