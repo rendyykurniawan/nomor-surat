@@ -20,7 +20,7 @@
 
         <form method="POST" action="{{ route('kategori.store') }}">
             @csrf
-            <div class="bg-white rounded-md border border-slate-300 shadow-sm p-6 flex flex-col gap-5 max-w-lg">
+            <div class="bg-white rounded-md border border-slate-300 shadow-sm p-6 flex flex-col gap-5 w-fit">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Nama Kategori</label>
                     <input type="text" name="nama" value="{{ old('nama') }}" required

@@ -132,8 +132,8 @@
                                                     <!-- Trigger Modal -->
                                                     <button
                                                         onclick="document.getElementById('modal-mundur-{{ $item->id }}').classList.remove('hidden')"
-                                                        class="bg-blue-500 rounded text-sm text-white px-3 py-1.5 hover:bg-blue-600 transition">
-                                                        Surat Mundur
+                                                        class="bg-blue-500 rounded text-xs text-white px-3 py-1.5 hover:bg-blue-600 transition">
+                                                        Ambil Surat Mundur
                                                     </button>
 
                                                     <!-- Modal -->
