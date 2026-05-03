@@ -1,19 +1,19 @@
-FROM php:8.4-cli
+FROM php:8.4-fpm
 
-RUN apt-get update && apt-get install -y \
-    git curl zip unzip \
-    libxml2-dev \
-    libzip-dev \
-    libonig-dev \
-    && docker-php-ext-install pdo pdo_mysql mbstring xml zip tokenizer \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get update -y && apt-get install -y \
+    git \
+    curl \
+    zip \
+    unzip \
+    && docker-php-ext-install pdo pdo_mysql \
+    && apt-get clean
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /app
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader --no-scripts --no-interaction --ignore-platform-req=ext-gd
+RUN composer install --no-dev --optimize-autoloader --no-scripts --no-interaction --ignore-platform-reqs
 
 EXPOSE 8000
 
