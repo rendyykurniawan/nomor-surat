@@ -39,10 +39,12 @@
                 @endforeach
             </div>
 
-            <div class="flex justify-between">
+            <div class="flex justify-between flex-wrap">
                 <form method="GET" action="{{ route('surat.index') }}">
 
-                    <div class="flex items-center gap-3 mb-4">
+                    <div class="flex items-center gap-3 mb-4 flex-wrap">
+                        <div class="flex items-center gap-3">
+
                         <label class="text-sm font-medium text-gray-600">Filter Kode:</label>
 
                         <select name="kode" onchange="this.form.submit()"
@@ -55,6 +57,8 @@
                                 </option>
                             @endforeach
                         </select>
+                        </div>
+
                         <div class="flex gap-2 items-center">
                             <label class="text-sm font-medium text-gray-600">Filter Tahun:</label>
                             <select name="tahun" onchange="this.form.submit()"
