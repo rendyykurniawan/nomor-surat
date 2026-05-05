@@ -36,6 +36,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::delete('/surat/{surat}', [SuratController::class, 'destroy'])->name('surat.destroy');
 
     Route::get('/log', [ActivityLogController::class, 'index'])->name('log.index');
+    Route::get('/surat/export', [SuratController::class, 'export'])->name('surat.export');
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {

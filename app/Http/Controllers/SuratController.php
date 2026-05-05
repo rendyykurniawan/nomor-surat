@@ -9,6 +9,8 @@ use App\Traits\LogsActivity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Exports\SuratExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SuratController extends Controller
 {
@@ -21,19 +23,37 @@ class SuratController extends Controller
         $kategoriList = Kategori::all();
         $kodeList     = KodeKategori::orderBy('kode')->get();
         $kode         = $request->kode;
+        $tahun        = $request->tahun;
 
         if (Auth::user()->role == 'admin') {
             $surat = Surat::with(['user', 'kategori.kodeKategori'])
                 ->when($kategori, fn($q) => $q->where('kategori_id', $kategori))
                 ->when($kode, fn($q) => $q->whereHas('kategori.kodeKategori', fn($q2) => $q2->where('kode', $kode)))
                 ->when($search, fn($q) => $q->where(fn($q2) => $q2->where('nomor', 'like', "%$search%")->orWhere('nama_surat', 'like', "%$search%")))
+                ->when($tahun, fn($q) => $q->whereYear('tanggal', $tahun))
                 ->latest()
                 ->paginate(10);
 
             $totalPerKategori = Kategori::withCount('surats')->get();
             $totalSemua       = Surat::count();
 
-            return view('surat.index', compact('surat', 'kategori', 'search', 'totalPerKategori', 'totalSemua', 'kategoriList', 'kodeList'));
+            $tahunList = Surat::selectRaw('YEAR(tanggal) as tahun')
+                ->distinct()
+                ->orderByDesc('tahun')
+                ->pluck('tahun');
+
+            return view('surat.index', compact(
+                'surat',
+                'kategori',
+                'search',
+                'totalPerKategori',
+                'totalSemua',
+                'kategoriList',
+                'kodeList',
+                'tahunList',
+                'tahun',
+                'kode' 
+            ));
         }
 
         $surat = Surat::with('kategori')
@@ -215,5 +235,24 @@ class SuratController extends Controller
         );
 
         return redirect()->route('surat.index')->with('success_delete', 'Data surat berhasil dihapus!');
+    }
+
+    public function export(Request $request)
+    {
+        $tahun = $request->tahun;
+
+        if (!$tahun) {
+            return redirect()->back()->with('error', 'Pilih tahun terlebih dahulu.');
+        }
+
+        $fileName = 'data-surat-' . $tahun . '.xlsx';
+
+        $this->log(
+            'Export Surat',
+            'Surat',
+            "Data surat tahun {$tahun} diekspor ke Excel"
+        );
+
+        return Excel::download(new SuratExport($tahun), $fileName);
     }
 }

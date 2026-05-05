@@ -102,6 +102,12 @@
                 <x-responsive-nav-link :href="route('pengguna.index')" :active="request()->routeIs('dashboard')">
                     {{ __('Pengguna') }}
                 </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('kategori.index')" :active="request()->routeIs('dashboard')">
+                    {{ __('kategori') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('log.index')" :active="request()->routeIs('dashboard')">
+                    {{ __('log') }}
+                </x-responsive-nav-link>
             @else
                 <x-responsive-nav-link :href="route('surat.index')" :active="request()->routeIs('dashboard')">
                     {{ __('Nomor Surat') }}

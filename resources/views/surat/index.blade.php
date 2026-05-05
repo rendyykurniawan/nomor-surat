@@ -55,6 +55,30 @@
                                 </option>
                             @endforeach
                         </select>
+                        <div class="flex gap-2 items-center">
+                            <label class="text-sm font-medium text-gray-600">Filter Tahun:</label>
+                            <select name="tahun" onchange="this.form.submit()"
+                                class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Semua Tahun</option>
+                                @foreach ($tahunList as $tahun)
+                                    <option value="{{ $tahun }}"
+                                        {{ request('tahun') == $tahun ? 'selected' : '' }}>
+                                        {{ $tahun }}
+                                    </option>
+                                @endforeach
+                            </select>
+
+                            <a href="{{ route('surat.export', ['tahun' => request('tahun') ?? date('Y')]) }}"
+                                class="flex items-center gap-2 px-4 py-2 text-sm bg-green-600 text-white rounded-lg hover:bg-green-500 transition">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                </svg>
+                                Export {{ request('tahun') ?? date('Y') }}
+                            </a>
+                        </div>
+
                     </div>
 
                 </form>
@@ -132,8 +156,7 @@
                                             $warnaList = ['blue', 'green', 'red', 'yellow', 'purple', 'indigo', 'pink'];
                                             $warna = $warnaList[($item->kategori_id - 1) % count($warnaList)];
                                         @endphp --}}
-                                        <span
-                                            class="px-2 py-1 rounded-full text-xs font-semibold">
+                                        <span class="px-2 py-1 rounded-full text-xs font-semibold">
                                             {{ $item->kategori->nama ?? '-' }}
                                         </span>
                                     </td>
@@ -227,7 +250,8 @@
 
                                         <!-- Kategori -->
                                         <div>
-                                            <label class="block text-sm font-medium text-gray-700 mb-1">Jenis / Kategori
+                                            <label class="block text-sm font-medium text-gray-700 mb-1">Jenis /
+                                                Kategori
                                                 Surat</label>
                                             <select :name="'surat[' + index + '][kategori_id]'" required
                                                 class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
