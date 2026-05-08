@@ -63,7 +63,7 @@
 
         {{-- Logo SINARA --}}
         <div class="text-center mt-5 mb-4 transition-transform duration-300 hover:scale-[1.02]">
-            <img src="{{ asset('images/Logosinara.png') }}" alt="Logo SINARA"
+            <img src="{{ asset('images/logoSinara.png') }}" alt="Logo SINARA"
                  class="mx-auto w-64 h-auto" style="filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));">
         </div>
 
