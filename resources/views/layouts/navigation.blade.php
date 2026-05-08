@@ -6,11 +6,18 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center justify-center gap-2">
                     <a href="{{ route('surat.index') }}">
-                        <img src="{{ asset('images/logo.png') }}" alt="Logo"
-                            class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200">
+                        <img src="{{ asset('images/logoJudul.png') }}" alt="Logo"
+                            class="block h-20 w-auto fill-current text-gray-800 dark:text-gray-200 transition-all duration-300 rounded-md hover:-translate-y-0.5">
                     </a>
                     <a href="{{ route('surat.index') }}">
-                        <p class="text-slate-600 text-sm font-semibold">Imigrasi Singkawang</p>
+                        <p
+                            class="text-sm font-semibold text-[#D49A1C] transition-all duration-300 rounded-md hover:-translate-y-0.5">
+                            SINARA</p>
+                        <p
+                            class="text-slate-600 text-[9px] font-semibold transition-all duration-300 rounded-md hover:-translate-y-0.5">
+                            <b class="text-[#D49A1C]">S</b>istem <b class="text-[#D49A1C]">I</b>nformasi <b
+                                class="text-[#D49A1C]">N</b>omor <br /> d<b class="text-[#D49A1C]">A</b>n Monitoring
+                            Su<b class="text-[#D49A1C]">R</b>at Kelu<b class="text-[#D49A1C]">A</b>r</p>
                     </a>
                 </div>
 

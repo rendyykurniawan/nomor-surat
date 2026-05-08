@@ -45,18 +45,18 @@
                     <div class="flex items-center gap-3 mb-4 flex-wrap">
                         <div class="flex items-center gap-3">
 
-                        <label class="text-sm font-medium text-gray-600">Filter Kode:</label>
+                            <label class="text-sm font-medium text-gray-600">Filter Kode:</label>
 
-                        <select name="kode" onchange="this.form.submit()"
-                            class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            <option value="">Semua Kode</option>
-                            @foreach ($kodeList as $item)
-                                <option value="{{ $item->kode }}"
-                                    {{ request('kode') == $item->kode ? 'selected' : '' }}>
-                                    {{ $item->kode }} - {{ $item->nama }}
-                                </option>
-                            @endforeach
-                        </select>
+                            <select name="kode" onchange="this.form.submit()"
+                                class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Semua Kode</option>
+                                @foreach ($kodeList as $item)
+                                    <option value="{{ $item->kode }}"
+                                        {{ request('kode') == $item->kode ? 'selected' : '' }}>
+                                        {{ $item->kode }} - {{ $item->nama }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="flex gap-2 items-center">
@@ -296,7 +296,8 @@
                                                 <option value="TIKKIM">TIKKIM</option>
                                                 <option value="INTELDAKIM">INTELDAKIM</option>
                                                 <option value="TU">TU</option>
-                                                <option value="LALIN">LALIN</option>
+                                                <option value="LALIN">LALINTASKIM</option>
+                                                <option value="LALIN">INTALTUSKIM</option>
                                             </select>
                                         </div>
                                     </div>
@@ -317,11 +318,11 @@
                     <!-- Tombol Tambah & Submit -->
                     <div class="flex gap-3 mt-4 flex-col">
                         <button type="button" @click="tambah()"
-                            class="border border-gray-600  text-gray-600 text-md py-2 px-4 rounded-lg hover:bg-gray-200 w-full">
+                            class="border border-gray-600  text-gray-600 text-md py-2 px-4 rounded-lg hover:bg-gray-200 w-full transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(212,154,28,0.4)]">
                             + Tambah Surat
                         </button>
                         <button type="submit"
-                            class="border border-blue-600 bg-blue-500 text-white text-md py-2 px-4 rounded-lg hover:bg-blue-700 w-full">
+                            class="border border-slate-600 bg-slate-700 text-white text-md py-2 px-4 rounded-lg  w-full transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(212,154,28,0.4)]">
                             Ambil Nomor
                         </button>
                     </div>
@@ -333,32 +334,55 @@
             <div x-data="{ show: true }" x-show="show"
                 class="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
 
-                <div class="bg-white p-6 rounded-xl shadow-lg w-[400px]">
-                    <h2 class="text-green-600 font-bold text-lg mb-3">Berhasil mengambil nomor surat!</h2>
-                    @if (session('data_surat'))
-                        @foreach (session('data_surat') as $item)
-                            <div class="bg-gray-100 p-3 rounded mb-2 text-sm text-left flex flex-col gap-1">
-                                <span>
-                                    <p class="text-slate-700 font-semibold text-md">Nomor surat</p>
-                                    <p class="text-slate-500 text-md">{{ $item['nomor'] }}</p>
-                                </span>
-                                <span>
-                                    <p class="text-slate-700 font-semibold text-md">Perihal</p>
-                                    <p class="text-slate-500 text-md">{{ $item['nama'] }}</p>
-                                </span>
-                                <span>
-                                    <p class="text-slate-700 font-semibold text-md">Keterangan</p>
-                                    <p class="text-slate-500 text-md">{{ $item['keterangan'] }}</p>
-                                </span>
-                            </div>
-                        @endforeach
-                    @endif
+                <div class="bg-white rounded-2xl shadow-xl w-full max-w-[460px] mx-4 overflow-hidden">
+                    {{-- Body --}}
+                    <div class="flex flex-col items-center px-8 pt-10 pb-6">
 
-                    <button @click="show = false" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded w-full">
-                        Tutup
-                    </button>
+                        {{-- Icon checkmark --}}
+                        <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mb-5">
+                            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor"
+                                stroke-width="2.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+
+                        {{-- Title --}}
+                        <h2 class="text-slate-900 font-bold text-xl text-center mb-6">
+                            Berhasil mengambil<br>nomor surat!
+                        </h2>
+
+                        {{-- Data surat --}}
+                        @if (session('data_surat'))
+                            @foreach (session('data_surat') as $item)
+                                <div
+                                    class="w-full bg-gray-50 border border-gray-200 rounded-xl px-6 py-4 flex flex-col gap-4 text-center mb-2">
+
+                                    <div>
+                                        <p class="text-slate-400 text-sm mb-1">Nomor surat</p>
+                                        <p class="text-slate-900 font-bold text-base tracking-wide">
+                                            {{ $item['nomor'] }}</p>
+                                    </div>
+
+                                    <div>
+                                        <p class="text-slate-400 text-sm mb-1">Perihal</p>
+                                        <p class="text-slate-900 font-bold text-base">{{ $item['nama'] }}</p>
+                                    </div>
+
+                                    <div>
+                                        <p class="text-slate-400 text-sm mb-1">Keterangan</p>
+                                        <p class="text-slate-900 font-bold text-base">{{ $item['keterangan'] }}</p>
+                                    </div>
+
+                                </div>
+                            @endforeach
+                        @endif
+
+                        <button @click="show = false"
+                            class="w-full bg-slate-900 hover:bg-[#D49A1C] text-white font-semibold text-base py-4 transition-all duration-300 rounded-md hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(212,154,28,0.4)]">
+                            Tutup
+                        </button>
+                    </div>
                 </div>
-
             </div>
         @endif
 
