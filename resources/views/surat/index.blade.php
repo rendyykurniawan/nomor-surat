@@ -15,26 +15,57 @@
             {{-- Kartu Statistik --}}
             <div class="grid grid-cols-2 sm:grid-cols-5 gap-4 mb-8">
                 {{-- Kartu Total Semua --}}
-                <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col gap-1">
+                <div
+                    class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col gap-1 transition-all duratin-500 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(30, 41, 59, 0.4)]">
                     <span class="text-xs text-slate-400 font-medium uppercase tracking-wide">Total Semua</span>
                     <span class="text-3xl font-bold text-slate-700">{{ $totalSemua }}</span>
                     <span class="text-xs text-slate-400">surat</span>
                 </div>
 
-                {{-- 4 Kategori Terbanyak --}}
                 @php
-                    $warnaList = ['blue', 'green', 'red', 'yellow', 'purple'];
+                    $warnaList = [
+                        'blue' => [
+                            'bg' => 'bg-blue-50',
+                            'border' => 'border-blue-200',
+                            'text' => 'text-blue-600',
+                            'label' => 'text-blue-400',
+                        ],
+                        'green' => [
+                            'bg' => 'bg-green-50',
+                            'border' => 'border-green-200',
+                            'text' => 'text-green-600',
+                            'label' => 'text-green-400',
+                        ],
+                        'red' => [
+                            'bg' => 'bg-red-50',
+                            'border' => 'border-red-200',
+                            'text' => 'text-red-600',
+                            'label' => 'text-red-400',
+                        ],
+                        'yellow' => [
+                            'bg' => 'bg-yellow-50',
+                            'border' => 'border-yellow-200',
+                            'text' => 'text-yellow-600',
+                            'label' => 'text-yellow-400',
+                        ],
+                        'purple' => [
+                            'bg' => 'bg-purple-50',
+                            'border' => 'border-purple-200',
+                            'text' => 'text-purple-600',
+                            'label' => 'text-purple-400',
+                        ],
+                    ];
+                    $warnaKeys = array_keys($warnaList);
                     $topKategori = $totalPerKategori->sortByDesc('surats_count')->take(4);
                 @endphp
 
                 @foreach ($topKategori as $i => $kat)
-                    @php $warna = $warnaList[$i % count($warnaList)]; @endphp
-                    <div
-                        class="bg-{{ $warna }}-50 border border-{{ $warna }}-200 rounded-xl p-4 flex flex-col gap-1">
+                    @php $w = $warnaList[$warnaKeys[$i % count($warnaKeys)]]; @endphp
+                    <div class="{{ $w['bg'] }} {{ $w['border'] }} border rounded-xl p-4 flex flex-col gap-1 transition-all duration-500 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(30, 41, 59, 0.4)]">
                         <span
-                            class="text-xs text-{{ $warna }}-400 font-medium uppercase tracking-wide truncate">{{ $kat->nama }}</span>
-                        <span class="text-3xl font-bold text-{{ $warna }}-600">{{ $kat->surats_count }}</span>
-                        <span class="text-xs text-{{ $warna }}-400">surat</span>
+                            class="text-xs {{ $w['label'] }} font-medium uppercase tracking-wide truncate">{{ $kat->nama }}</span>
+                        <span class="text-3xl font-bold {{ $w['text'] }}">{{ $kat->surats_count }}</span>
+                        <span class="text-xs {{ $w['label'] }}">surat</span>
                     </div>
                 @endforeach
             </div>
@@ -73,7 +104,7 @@
                             </select>
 
                             <a href="{{ route('surat.export', ['tahun' => request('tahun') ?? date('Y')]) }}"
-                                class="flex items-center gap-2 px-4 py-2 text-sm bg-green-600 text-white rounded-lg hover:bg-green-500 transition">
+                                class="flex items-center gap-2 px-4 py-2 text-sm bg-green-600 text-white rounded-lg hover:bg-green-500 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(30, 41, 59, 0.4)]">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -97,7 +128,7 @@
                             placeholder="Cari nomor atau nama surat..."
                             class="px-4 py-2 text-sm border border-gray-300 rounded-lg shadow-sm bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 w-72" />
                         <button type="submit"
-                            class="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition">
+                            class="px-4 py-2 text-sm bg-slate-800 text-white rounded-lg hover:bg-slate-700 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(30, 41, 59, 0.4)]">
                             Cari
                         </button>
                         @if ($search)
@@ -232,7 +263,7 @@
                                     class="form-surat bg-white rounded-md border border-slate-300 shadow-sm p-5 w-full relative">
                                     <!-- Nomor Urut -->
                                     <span
-                                        class="text-sm font-semibold flex items-center justify-center text-white bg-blue-500 w-10 h-10 rounded-full absolute top-[-13px] left-[-13px] z-10"
+                                        class="text-sm font-semibold flex items-center justify-center text-white bg-[#D49A1C] w-10 h-10 rounded-full absolute top-[-13px] left-[-13px] z-10 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(212,154,28,0.4)]"
                                         x-text="surat.id"></span>
 
                                     <!-- Grid field: 1 kolom di HP, 3 kolom di desktop -->
@@ -318,11 +349,11 @@
                     <!-- Tombol Tambah & Submit -->
                     <div class="flex gap-3 mt-4 flex-col">
                         <button type="button" @click="tambah()"
-                            class="border border-gray-600  text-gray-600 text-md py-2 px-4 rounded-lg hover:bg-gray-200 w-full transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(212,154,28,0.4)]">
+                            class="border border-gray-600  text-gray-600 text-md py-2 px-4 rounded-lg hover:bg-gray-200 w-full transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(30, 41, 59, 0.4)]">
                             + Tambah Surat
                         </button>
                         <button type="submit"
-                            class="border border-slate-600 bg-slate-700 text-white text-md py-2 px-4 rounded-lg  w-full transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(212,154,28,0.4)]">
+                            class="border border-slate-600 bg-slate-700 text-white text-md py-2 px-4 rounded-lg  w-full transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(30, 41, 59, 0.4)]">
                             Ambil Nomor
                         </button>
                     </div>

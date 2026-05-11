@@ -27,7 +27,7 @@
                                 Riwayat Surat Anda
                             </h3>
                             <a href="{{ route('surat.index') }}"
-                                class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition">
+                                class="inline-flex items-center px-4 py-2 bg-[#b57c02] text-white text-xs font-medium rounded-lg hover:bg-[#d49a1c] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(212,154,28,0.4)]">
                                 + Buat Nomor Surat
                             </a>
                         </div>
@@ -98,19 +98,6 @@
                                                     {{ $item->nomor }}</td>
                                                 <td class="px-4 py-3 text-gray-700">{{ $item->nama_surat }}</td>
                                                 <td class="px-4 py-3">
-                                                    {{-- @php
-                                                        $warnaList = [
-                                                            'blue',
-                                                            'green',
-                                                            'red',
-                                                            'yellow',
-                                                            'purple',
-                                                            'indigo',
-                                                            'pink',
-                                                        ];
-                                                        $warna =
-                                                            $warnaList[($item->kategori_id - 1) % count($warnaList)];
-                                                    @endphp --}}
                                                     <span class="px-2 py-1 rounded-full text-xs font-semibold">
                                                         {{ $item->kategori->nama ?? '-' }}
                                                     </span>
@@ -119,131 +106,91 @@
                                                 <td class="px-4 py-3 text-gray-500">
                                                     {{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('d F Y') }}
                                                 </td>
-                                                {{-- <td class="px-4 py-3"> --}}
-                                                {{-- <!-- Trigger Modal -->
-                                                    <button
-                                                        onclick="document.getElementById('modal-mundur-{{ $item->id }}').classList.remove('hidden')"
-                                                        class="bg-blue-500 rounded text-sm text-white px-3 py-1.5 hover:bg-blue-600 transition">
-                                                        Surat Mundur
-                                                    </button> --}}
-
                                                 <!-- Modal -->
                                                 <td class="px-4 py-3">
                                                     <!-- Trigger Modal -->
                                                     <button
                                                         onclick="document.getElementById('modal-mundur-{{ $item->id }}').classList.remove('hidden')"
-                                                        class="bg-blue-500 rounded text-xs text-white px-3 py-1.5 hover:bg-blue-600 transition">
+                                                        class="bg-slate-500 rounded text-xs text-white px-3 py-1.5 hover:bg-slate-600 transition">
                                                         Ambil Surat Mundur
                                                     </button>
 
                                                     <!-- Modal -->
                                                     <div id="modal-mundur-{{ $item->id }}"
-                                                        class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-                                                        <div class="bg-white rounded-xl shadow-lg p-6 w-[450px]">
-                                                            <h3 class="text-lg font-semibold text-gray-700 mb-1">Ambil
-                                                                Surat Mundur</h3>
-                                                            <p class="text-sm text-gray-500 mb-4">
-                                                                Nomor referensi: <span
-                                                                    class="font-mono font-bold text-blue-600">{{ $item->nomor }}</span>
-                                                            </p>
+                                                        class="hidden fixed inset-0 bg-black/50">
+                                                        <div class="flex items-center justify-center z-50 min-h-screen">
+                                                            <div class="bg-white rounded-xl shadow-lg p-6 w-[450px]">
+                                                                <h3 class="text-lg font-semibold text-gray-700 mb-1">
+                                                                    Ambil
+                                                                    Surat Mundur</h3>
+                                                                <p class="text-sm text-gray-500 mb-4">
+                                                                    Nomor referensi: <span
+                                                                        class="font-mono font-bold text-blue-600">{{ $item->nomor }}</span>
+                                                                </p>
 
-                                                            <form method="POST"
-                                                                action="{{ route('surat.mundur', $item->id) }}">
-                                                                @csrf
+                                                                <form method="POST"
+                                                                    action="{{ route('surat.mundur', $item->id) }}">
+                                                                    @csrf
 
-                                                                {{-- Pilih Kode --}}
-                                                                <div class="mb-3">
-                                                                    <label
-                                                                        class="block text-sm font-medium text-gray-700 mb-1">Pilih
-                                                                        Kode</label>
-                                                                    <select
-                                                                        onchange="filterKategori(this.value, {{ $item->id }})"
-                                                                        class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                                                        <option value="">-- Pilih Kode --</option>
-                                                                        @foreach ($kodeList as $kode)
-                                                                            <option value="{{ $kode->id }}">
-                                                                                {{ $kode->kode }} -
-                                                                                {{ $kode->nama }}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
+                                                                    {{-- Pilih Kode --}}
+                                                                    <div class="mb-3">
+                                                                        <label
+                                                                            class="block text-sm font-medium text-gray-700 mb-1">Pilih
+                                                                            Kode</label>
+                                                                        <select
+                                                                            onchange="filterKategori(this.value, {{ $item->id }})"
+                                                                            class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                                                            <option value="">-- Pilih Kode --
+                                                                            </option>
+                                                                            @foreach ($kodeList as $kode)
+                                                                                <option value="{{ $kode->id }}">
+                                                                                    {{ $kode->kode }} -
+                                                                                    {{ $kode->nama }}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
 
-                                                                {{-- Pilih Jenis Surat --}}
-                                                                <div class="mb-3">
-                                                                    <label
-                                                                        class="block text-sm font-medium text-gray-700 mb-1">Jenis
-                                                                        / Kategori Surat</label>
-                                                                    <select name="kategori_id"
-                                                                        id="kategori-select-{{ $item->id }}"
-                                                                        required
-                                                                        class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                                                        <option value="">-- Pilih Kode Dulu --
-                                                                        </option>
-                                                                    </select>
-                                                                </div>
+                                                                    {{-- Pilih Jenis Surat --}}
+                                                                    <div class="mb-3">
+                                                                        <label
+                                                                            class="block text-sm font-medium text-gray-700 mb-1">Jenis
+                                                                            / Kategori Surat</label>
+                                                                        <select name="kategori_id"
+                                                                            id="kategori-select-{{ $item->id }}"
+                                                                            required
+                                                                            class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                                                            <option value="">-- Pilih Kode Dulu --
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
 
-                                                                {{-- Perihal Surat --}}
-                                                                <div class="mb-4">
-                                                                    <label
-                                                                        class="block text-sm font-medium text-gray-700 mb-1">Perihal
-                                                                        Surat</label>
-                                                                    <input type="text" name="nama_surat" required
-                                                                        placeholder="Masukkan perihal surat..."
-                                                                        class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                                                </div>
+                                                                    {{-- Perihal Surat --}}
+                                                                    <div class="mb-4">
+                                                                        <label
+                                                                            class="block text-sm font-medium text-gray-700 mb-1">Perihal
+                                                                            Surat</label>
+                                                                        <input type="text" name="nama_surat" required
+                                                                            placeholder="Masukkan perihal surat..."
+                                                                            class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                                                                    </div>
 
-                                                                <div class="flex justify-end gap-2">
-                                                                    <button type="button"
-                                                                        onclick="document.getElementById('modal-mundur-{{ $item->id }}').classList.add('hidden')"
-                                                                        class="px-4 py-2 text-sm text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50">
-                                                                        Batal
-                                                                    </button>
-                                                                    <button type="submit"
-                                                                        class="px-4 py-2 text-sm text-white bg-blue-600 rounded-lg hover:bg-blue-700">
-                                                                        Buat Surat Mundur
-                                                                    </button>
-                                                                </div>
-                                                            </form>
+                                                                    <div class="flex justify-end gap-2">
+                                                                        <button type="button"
+                                                                            onclick="document.getElementById('modal-mundur-{{ $item->id }}').classList.add('hidden')"
+                                                                            class="px-4 py-2 text-sm text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 transition-all duration-300 hover:shadow-lg">
+                                                                            Batal
+                                                                        </button>
+                                                                        <button type="submit"
+                                                                            class="px-4 py-2 text-sm text-white bg-slate-600 rounded-lg hover:bg-slate-700">
+                                                                            Buat Surat Mundur
+                                                                        </button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
                                                         </div>
+
                                                     </div>
                                                 </td>
-                                                {{-- <div id="modal-mundur-{{ $item->id }}"
-                                                        class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-                                                        <div class="bg-white rounded-xl shadow-lg p-6 w-[400px]">
-                                                            <h3 class="text-lg font-semibold text-gray-700 mb-1">Ambil
-                                                                Surat Mundur</h3>
-                                                            <p class="text-sm text-gray-500 mb-4">
-                                                                Nomor referensi: <span
-                                                                    class="font-mono font-bold text-blue-600">{{ $item->nomor }}</span>
-                                                            </p>
-
-                                                            <form method="POST"
-                                                                action="{{ route('surat.mundur', $item->id) }}">
-                                                                @csrf
-                                                                <div class="mb-4">
-                                                                    <label
-                                                                        class="block text-sm font-medium text-gray-700 mb-1">Perihal
-                                                                        Surat</label>
-                                                                    <input type="text" name="nama_surat" required
-                                                                        placeholder="Masukkan perihal surat..."
-                                                                        class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                                                </div>
-
-                                                                <div class="flex justify-end gap-2">
-                                                                    <button type="button"
-                                                                        onclick="document.getElementById('modal-mundur-{{ $item->id }}').classList.add('hidden')"
-                                                                        class="px-4 py-2 text-sm text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50">
-                                                                        Batal
-                                                                    </button>
-                                                                    <button type="submit"
-                                                                        class="px-4 py-2 text-sm text-white bg-blue-600 rounded-lg hover:bg-blue-700">
-                                                                        Buat Surat Mundur
-                                                                    </button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </td> --}}
                                                 {{-- <td class="px-4 py-3">
                                                     <a href="{{ route('surat.cetak', $item->id) }}"
                                                         class="px-3 py-1.5 text-xs font-medium text-green-600 border border-green-400 rounded-lg hover:bg-green-50 transition">
@@ -273,36 +220,48 @@
         @endif
 
         @if (session('success_mundur'))
-            <div x-data="{ show: true }" x-show="show"
-                class="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
+        <div x-data="{ show: true }" x-show="show"
+            class="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
+            <div class="bg-white p-6 rounded-xl shadow-lg w-[400px]">
+                <div class="flex justify-center">
 
-                <div class="bg-white p-6 rounded-xl shadow-lg w-[400px]">
-                    <h2 class="text-green-600 font-bold text-lg mb-3">Berhasil mengambil nomor surat!</h2>
-
-                    @if (session('data_mundur'))
-                        @php $item = session('data_mundur'); @endphp
-                        <div class="bg-gray-100 p-3 rounded mb-2 text-sm text-left flex flex-col gap-1">
-                            <span>
-                                <p class="text-slate-700 font-semibold text-md">Nomor surat</p>
-                                <p class="text-slate-500 text-md">{{ $item['nomor'] }}</p>
-                            </span>
-                            <span>
-                                <p class="text-slate-700 font-semibold text-md">Perihal</p>
-                                <p class="text-slate-500 text-md">{{ $item['nama'] }}</p>
-                            </span>
-                            <span>
-                                <p class="text-slate-700 font-semibold text-md">Keterangan</p>
-                                <p class="text-slate-500 text-md">{{ $item['keterangan'] }}</p>
-                            </span>
-                        </div>
-                    @endif
-
-                    <button @click="show = false" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded w-full">
-                        Tutup
-                    </button>
+                    <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mb-5">
+                        <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" stroke-width="2.5"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
                 </div>
 
+
+                {{-- Title --}}
+                <h2 class="text-slate-900 font-bold text-xl text-center mb-6">
+                    Berhasil mengambil<br>nomor surat!
+                </h2>
+
+                @if (session('data_mundur'))
+                    @php $item = session('data_mundur'); @endphp
+                    <div class="bg-gray-100 p-3 rounded mb-2 text-sm text-left flex flex-col gap-1">
+                        <span>
+                            <p class="text-slate-700 font-semibold text-md">Nomor surat</p>
+                            <p class="text-slate-500 text-md">{{ $item['nomor'] }}</p>
+                        </span>
+                        <span>
+                            <p class="text-slate-700 font-semibold text-md">Perihal</p>
+                            <p class="text-slate-500 text-md">{{ $item['nama'] }}</p>
+                        </span>
+                        <span>
+                            <p class="text-slate-700 font-semibold text-md">Keterangan</p>
+                            <p class="text-slate-500 text-md">{{ $item['keterangan'] }}</p>
+                        </span>
+                    </div>
+                @endif
+
+                <button @click="show = false" class="mt-4 bg-slate-600 text-white px-4 py-2 rounded w-full">
+                    Tutup
+                </button>
             </div>
+        </div>
         @endif
 
     </div>

@@ -34,7 +34,8 @@
                     <div class="flex items-center gap-2">
 
                         {{-- Prefix statis --}}
-                        <span class="bg-slate-100 border border-gray-300 rounded-lg px-3 py-2 text-sm font-mono text-gray-500 whitespace-nowrap">
+                        <span
+                            class="bg-slate-100 border border-gray-300 rounded-lg px-3 py-2 text-sm font-mono text-gray-500 whitespace-nowrap">
                             WIM.16.IMI.2-
                         </span>
 
@@ -42,7 +43,7 @@
                         <select name="kode_kategori" required
                             class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
                             <option value="">-- Pilih Kode --</option>
-                            @foreach($kodeList as $kode)
+                            @foreach ($kodeList as $kode)
                                 <option value="{{ $kode->kode }}"
                                     {{ old('kode_kategori') == $kode->kode ? 'selected' : '' }}>
                                     {{ $kode->kode }} - {{ $kode->nama }}
@@ -66,7 +67,7 @@
 
                 <div class="flex gap-3 pt-2">
                     <button type="submit"
-                        class="bg-blue-600 text-white text-sm py-2 px-6 rounded-lg hover:bg-blue-500 transition">
+                        class="bg-slate-800 text-white text-sm py-2 px-6 rounded-lg hover:bg-slate-700 transition-all duration-500 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(30, 41, 59, 0.4)]">
                         Simpan
                     </button>
                     <a href="{{ route('kategori.index') }}"

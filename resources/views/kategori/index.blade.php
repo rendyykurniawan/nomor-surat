@@ -4,7 +4,7 @@
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-bold">Kategori Surat</h2>
                 <a href="{{ route('kategori.create') }}"
-                    class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition">
+                    class="px-4 py-2 bg-slate-800 text-white text-sm font-medium rounded-lg hover:bg-slate-700 transition duration-300">
                     + Tambah Kategori
                 </a>
             </div>

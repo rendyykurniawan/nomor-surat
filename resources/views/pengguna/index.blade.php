@@ -4,7 +4,7 @@
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-bold">Manajemen Pengguna</h2>
                 <a href="{{ route('pengguna.create') }}"
-                    class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition">
+                    class="px-4 py-2 bg-slate-800 text-white text-sm font-medium rounded-lg hover:bg-slate-700 transition-all duration-500 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(30, 41, 59, 0.4)]">
                     + Tambah Pengguna
                 </a>
             </div>

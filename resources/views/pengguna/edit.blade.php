@@ -50,7 +50,7 @@
 
                 <div class="flex gap-3 pt-2">
                     <button type="submit"
-                        class="bg-blue-600 text-white text-sm py-2 px-6 rounded-lg hover:bg-blue-500 transition">
+                        class="bg-slate-800 text-white text-sm py-2 px-6 rounded-lg hover:bg-slate-700 transition">
                         Simpan Perubahan
                     </button>
                     <a href="{{ route('pengguna.index') }}"
