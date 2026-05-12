@@ -1,63 +1,72 @@
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
-    <!-- Primary Navigation Menu -->
+<nav x-data="{ open: false }" class="bg-[#0a2d5a] border-b border-[#0a2d5a]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center justify-center gap-2">
-                    <a href="{{ route('surat.index') }}">
-                        <img src="{{ asset('images/logoJudul.png') }}" alt="Logo"
-                            class="block h-20 w-auto fill-current text-gray-800 dark:text-gray-200 transition-all duration-300 rounded-md hover:-translate-y-0.5">
-                    </a>
-                    <a href="{{ route('surat.index') }}">
-                        <p
-                            class="text-sm font-semibold text-[#D49A1C] transition-all duration-300 rounded-md hover:-translate-y-0.5">
-                            SINARA</p>
-                        <p
-                            class="text-slate-600 text-[9px] font-semibold transition-all duration-300 rounded-md hover:-translate-y-0.5">
-                            <b class="text-[#D49A1C]">S</b>istem <b class="text-[#D49A1C]">I</b>nformasi <b
-                                class="text-[#D49A1C]">N</b>omor <br /> d<b class="text-[#D49A1C]">A</b>n Monitoring
-                            Su<b class="text-[#D49A1C]">R</b>at Kelu<b class="text-[#D49A1C]">A</b>r</p>
-                    </a>
-                </div>
+        <div class="flex justify-between h-20 items-center">
 
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('surat.index')" :active="request()->routeIs('surat.index')">
-                        {{ __('Nomor Surat') }}
-                    </x-nav-link>
-                    @if (auth()->user()->role == 'admin')
-                        <x-nav-link :href="route('pengguna.index')" :active="request()->routeIs('pengguna.index')">
-                            {{ __('Pengguna') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('kategori.index')" :active="request()->routeIs('kategori.*')">
-                            {{ __('Kategori') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('log.index')" :active="request()->routeIs('log.*')">
-                            {{ __('Logs') }}
-                        </x-nav-link>
-                    @else
-                        <x-nav-link :href="route('surat.riwayat')" :active="request()->routeIs('surat.riwayat')">
-                            {{ __('Riwayat Surat') }}
-                        </x-nav-link>
-                    @endif
-                </div>
+            <!-- Logo (kiri) -->
+            <div class="shrink-0 flex items-center gap-2">
+                <a href="{{ route('surat.index') }}" class="flex items-center gap-2 ">
+                    <img src="/images/logoNavbar.png" alt="" class="h-[10rem] transition-all duration-300 hover:-translate-y-0.5">
+                    {{-- <div class="bg-white rounded-md px-3 py-1.5">
+                        <p class="text-sm font-bold text-[#0a2d5a] tracking-widest">SINARA</p>
+                    </div> --}}
+                </a>
             </div>
 
-            <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
+            <!-- Navigation Links (tengah) -->
+            <div class="hidden sm:flex flex-1 justify-center items-stretch space-x-8">
+                <a href="{{ route('surat.index') }}"
+                    class="inline-flex items-end pb-4 h-20 px-1 text-sm font-medium transition-all duration-150
+                    {{ request()->routeIs('surat.index')
+                        ? 'text-white border-b-2 border-white'
+                        : 'text-gray-300 border-b-2 border-transparent hover:text-white hover:border-white' }}">
+                    {{ __('Nomor Surat') }}
+                </a>
+
+                @if (auth()->user()->role == 'admin')
+                    <a href="{{ route('pengguna.index') }}"
+                        class="inline-flex items-end pb-4 h-20 px-1 text-sm font-medium transition-all duration-150
+                        {{ request()->routeIs('pengguna.index')
+                            ? 'text-white border-b-2 border-white'
+                            : 'text-gray-300 border-b-2 border-transparent hover:text-white hover:border-white' }}">
+                        {{ __('Pengguna') }}
+                    </a>
+                    <a href="{{ route('kategori.index') }}"
+                        class="inline-flex items-end pb-4 h-20 px-1 text-sm font-medium transition-all duration-150
+                        {{ request()->routeIs('kategori.*')
+                            ? 'text-white border-b-2 border-white'
+                            : 'text-gray-300 border-b-2 border-transparent hover:text-white hover:border-white' }}">
+                        {{ __('Kategori') }}
+                    </a>
+                    <a href="{{ route('log.index') }}"
+                        class="inline-flex items-end pb-4 h-20 px-1 text-sm font-medium transition-all duration-150
+                        {{ request()->routeIs('log.*')
+                            ? 'text-white border-b-2 border-white'
+                            : 'text-gray-300 border-b-2 border-transparent hover:text-white hover:border-white' }}">
+                        {{ __('Logs') }}
+                    </a>
+                @else
+                    <a href="{{ route('surat.riwayat') }}"
+                        class="inline-flex items-end pb-4 h-20 px-1 text-sm font-medium transition-all duration-150
+                        {{ request()->routeIs('surat.riwayat')
+                            ? 'text-white border-b-2 border-white'
+                            : 'text-gray-300 border-b-2 border-transparent hover:text-white hover:border-white' }}">
+                        {{ __('Riwayat Surat') }}
+                    </a>
+                @endif
+            </div>
+
+            <!-- User + Dropdown (kanan) -->
+            <div class="hidden sm:flex sm:items-center">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button
-                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->name }}</div>
+                        <button class="inline-flex items-center gap-2 px-2 py-1 rounded-md text-white text-sm font-medium hover:bg-white/10 focus:outline-none transition duration-150 ease-in-out hover:-translate-y-0.5">
+                            <!-- Nama -->
+                            <span>{{ Auth::user()->name }}</span>
 
-                            <div class="ms-1">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd"
-                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                        clip-rule="evenodd" />
+                            <!-- Icon lingkaran user -->
+                            <div class="w-8 h-8 rounded-full bg-gray-400 flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 24 24" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M12 12a5 5 0 100-10 5 5 0 000 10zm-7 9a7 7 0 1114 0H5z" clip-rule="evenodd" />
                                 </svg>
                             </div>
                         </button>
@@ -70,12 +79,10 @@
                             </x-dropdown-link>
                         @endif
 
-                        <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <x-dropdown-link :href="route('logout')"
-                                onclick="event.preventDefault();
-                     this.closest('form').submit();">
+                                onclick="event.preventDefault(); this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
@@ -86,13 +93,14 @@
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
                 <button @click="open = ! open"
-                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out">
+                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-300 hover:text-white hover:bg-white/10 focus:outline-none transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{ 'hidden': open, 'inline-flex': !open }" class="inline-flex"
                             stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{ 'hidden': !open, 'inline-flex': open }" class="hidden" stroke-linecap="round"
-                            stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        <path :class="{ 'hidden': !open, 'inline-flex': open }" class="hidden"
+                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
@@ -100,51 +108,42 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
+    <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden bg-[#0a2d5a]">
         <div class="pt-2 pb-3 space-y-1">
             @if (auth()->user()->role == 'admin')
-                <x-responsive-nav-link :href="route('surat.index')" :active="request()->routeIs('dashboard')">
-                    {{ __('Nomor Surat') }}
+                <x-responsive-nav-link :href="route('surat.index')" :active="request()->routeIs('surat.index')">
+                    <span class="text-white">{{ __('Nomor Surat') }}</span>
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('pengguna.index')" :active="request()->routeIs('dashboard')">
-                    {{ __('Pengguna') }}
+                <x-responsive-nav-link :href="route('pengguna.index')" :active="request()->routeIs('pengguna.index')">
+                    <span class="text-white">{{ __('Pengguna') }}</span>
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('kategori.index')" :active="request()->routeIs('dashboard')">
-                    {{ __('kategori') }}
+                <x-responsive-nav-link :href="route('kategori.index')" :active="request()->routeIs('kategori.*')">
+                    <span class="text-white">{{ __('Kategori') }}</span>
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('log.index')" :active="request()->routeIs('dashboard')">
-                    {{ __('log') }}
+                <x-responsive-nav-link :href="route('log.index')" :active="request()->routeIs('log.*')">
+                    <span class="text-white">{{ __('Log') }}</span>
                 </x-responsive-nav-link>
             @else
-                <x-responsive-nav-link :href="route('surat.index')" :active="request()->routeIs('dashboard')">
-                    {{ __('Nomor Surat') }}
+                <x-responsive-nav-link :href="route('surat.index')" :active="request()->routeIs('surat.index')">
+                    <span class="text-white">{{ __('Nomor Surat') }}</span>
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('surat.riwayat')" :active="request()->routeIs('dashboard')">
-                    {{ __('Riwayat Surat') }}
+                <x-responsive-nav-link :href="route('surat.riwayat')" :active="request()->routeIs('surat.riwayat')">
+                    <span class="text-white">{{ __('Riwayat Surat') }}</span>
                 </x-responsive-nav-link>
             @endif
         </div>
 
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+        <div class="pt-4 pb-1 border-t border-white/20">
             <div class="px-4">
-                <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                <div class="font-medium text-base text-white">{{ Auth::user()->name }}</div>
+                <div class="font-medium text-sm text-gray-300">{{ Auth::user()->email }}</div>
             </div>
-
             <div class="mt-3 space-y-1">
-                {{-- <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link> --}}
-
-                <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-
                     <x-responsive-nav-link :href="route('logout')"
-                        onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                        onclick="event.preventDefault(); this.closest('form').submit();">
+                        <span class="text-white">{{ __('Log Out') }}</span>
                     </x-responsive-nav-link>
                 </form>
             </div>

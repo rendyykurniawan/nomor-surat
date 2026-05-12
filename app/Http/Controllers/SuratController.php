@@ -189,6 +189,7 @@ class SuratController extends Controller
         ]);
     }
 
+
     public function edit(Surat $surat)
     {
         $kategoriList = Kategori::orderBy('nama')->get();
@@ -220,7 +221,7 @@ class SuratController extends Controller
             "Surat {$nomorLama} diedit"
         );
 
-        return redirect()->route('surat.index')->with('success_edit', 'Data surat berhasil diupdate!');
+        return redirect()->route('surat.edit', $surat->id)->with('success_edit', 'Data surat berhasil diupdate!');
     }
 
     public function destroy(Surat $surat)

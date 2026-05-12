@@ -349,7 +349,7 @@
                     <!-- Tombol Tambah & Submit -->
                     <div class="flex gap-3 mt-4 flex-col">
                         <button type="button" @click="tambah()"
-                            class="border border-gray-600  text-gray-600 text-md py-2 px-4 rounded-lg hover:bg-gray-200 w-full transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(30, 41, 59, 0.4)]">
+                            class="border border-gray-600  text-gray-600 text-md py-2 px-4 rounded-lg hover:bg-gray-200 w-full transition-all duration-300 hover:-translate-y-0.5">
                             + Tambah Surat
                         </button>
                         <button type="submit"

@@ -55,6 +55,8 @@
 
                     </select>
                 </div> --}}
+               
+                <input type="hidden" name="kategori_id" value="{{ $surat->kategori_id }}" />
 
                 {{-- Perihal Surat --}}
                 <div>
@@ -93,6 +95,5 @@
             </div>
         @endif
     </div>
-
 
 </x-app-layout>
